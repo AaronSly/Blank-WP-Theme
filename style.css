@@ -6,3 +6,63 @@ Version: 1.0
 Author URI: https://www.aaronsly.com/
 */
 
+/*
+Colour reference
+================
+ 
+
+Contents
+===================================
+* Resets, overrides and global
+* Links & Typography
+* Layout
+* Element styling
+* Plugins
+* Media Queries
+* Misc
+=================================== */
+
+
+/*===================================
+	Resets, overrides and global
+===================================*/
+/*	Font size reset - use rem units and provide px unit fall backs for IE 8 and below  */
+html {  
+  font-size: 62.5%; /* sets the base font to 10px*/
+}
+
+body {  
+  font-size: 16px;
+  font-size: 1.6rem;  
+  /* sets the default sizing to make sure nothing is actually 10px */
+}
+
+/*===================================
+	Links & Typography
+===================================*/
+
+
+/*===================================
+	Layout
+===================================*/
+
+
+/*===================================
+	Color and element styling
+===================================*/
+
+
+/*===================================
+	Plugins
+===================================*/
+
+
+/*===================================
+	Media Queries
+===================================*/
+
+
+/*===================================
+	Misc
+===================================*/
+
