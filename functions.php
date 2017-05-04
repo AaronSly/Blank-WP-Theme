@@ -142,6 +142,33 @@ function NAMESPACETHIS_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'NAMESPACETHIS_scripts' );
 
+//Making jQuery to load from Google Library
+function replace_jquery() {
+	if (!is_admin()) {
+		// comment out the next two lines to load the local copy of jQuery
+		wp_deregister_script('jquery');
+		wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', false, '1.11.3');
+		wp_enqueue_script('jquery');
+	}
+}
+add_action('init', 'replace_jquery');
+
+/******************************
+ * Load scripts via async.
+ *****************************/
+function add_async_attribute($tag, $handle) {
+   // add script handles to the array below
+   $scripts_to_async = array('script-handle', 'script-handle');
+   
+   foreach($scripts_to_async as $async_script) {
+      if ($async_script === $handle) {
+         return str_replace(' src', ' async="async" src', $tag);
+      }
+   }
+   return $tag;
+}
+add_filter('script_loader_tag', 'add_async_attribute', 10, 2);
+
 /*****************************************************************
  * Register and enqueue a custom stylesheet in the WordPress admin.
  ****************************************************************/
@@ -361,4 +388,9 @@ function NAMESPACETHIS_pre_user_query($user_search) {
  
     }
 }
+
+/***************************************
+* WooCommerce Functions File Stuff
+***************************************/
+include_once('inc/woo-functions.php');
 ?>
