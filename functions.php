@@ -133,32 +133,54 @@ add_action( 'widgets_init', 'NAMESPACETHIS_widgets_init' );
 function NAMESPACETHIS_scripts() {
 
 	// Theme stylesheets.
+	wp_enqueue_style( 'style', get_template_directory_uri() . '/style.css',false,'1.0','all');
+	//wp_enqueue_style( 'font-awesome', 'https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css',false,'1.0','all');
 	wp_enqueue_style( 'NAME', get_template_directory_uri() . 'PATH/TO/FILE.css',false,'1.0','all');
 	
 	
 	//Theme JS
-	wp_enqueue_script( 'NAME', get_template_directory_uri() . 'PATH/TO/FILE.js', array ( 'jquery' ), 1.0, true);
+	wp_enqueue_script( 'theme', get_template_directory_uri() . '/js/theme.js', array ( 'jquery' ), 1.0, true);
+	// enqueue jQuery migrate to avoid any conflicts
+	wp_enqueue_script( 'jquery-migrate', get_site_url() . '/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1', array ( 'jquery' ), 1.0, true);
+	wp_enqueue_script( 'NAME', get_template_directory_uri() . 'PATH/TO/FILE.js', array ( '' ), 1.0, true);
 		
 }
 add_action( 'wp_enqueue_scripts', 'NAMESPACETHIS_scripts' );
 
-//Making jQuery to load from Google Library
-function replace_jquery() {
-	if (!is_admin()) {
+/******************************
+ * Stop render blocking scripts.
+ *****************************/
+/*
+ * Making jQuery to load from Google Library
+ */
+function as_replace_jquery() {	
 		// comment out the next two lines to load the local copy of jQuery
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js', false, '1.11.3');
-		wp_enqueue_script('jquery');
-	}
+		wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js', false, '1.11.3');
+		wp_enqueue_script('jquery');	
 }
-add_action('init', 'replace_jquery');
+add_action('wp_enqueue_scripts', 'as_replace_jquery');
 
-/******************************
+
+/*
+ * Helper function to print script handels at the top of the page
+ */
+
+//add_action( 'wp_print_scripts', 'es_detect_enqueued_scripts' );
+//function es_detect_enqueued_scripts() {
+//	global $wp_scripts;
+//	foreach( $wp_scripts->queue as $handle ) :
+//		echo $handle . ' | ';
+//	endforeach;
+//}
+
+/*
  * Load scripts via async.
- *****************************/
+ */
+
 function add_async_attribute($tag, $handle) {
    // add script handles to the array below
-   $scripts_to_async = array('script-handle', 'script-handle');
+   $scripts_to_async = array('theme', 'contact-form-7','jquery-migrate','wp-embed');
    
    foreach($scripts_to_async as $async_script) {
       if ($async_script === $handle) {
@@ -168,6 +190,25 @@ function add_async_attribute($tag, $handle) {
    return $tag;
 }
 add_filter('script_loader_tag', 'add_async_attribute', 10, 2);
+
+/*
+* Load scripts via Defer
+*/
+
+//add_filter( 'script_loader_tag', 'wsds_defer_scripts', 10, 3 );
+//function wsds_defer_scripts( $tag, $handle, $src ) {
+//
+//	// The handles of the enqueued scripts we want to defer
+//	$defer_scripts = array(		
+//		'handle'
+//	);
+//
+//    if ( in_array( $handle, $defer_scripts ) ) {
+//        return '<script src="' . $src . '" defer="defer" type="text/javascript"></script>' . "\n";
+//    }
+//    
+//    return $tag;
+//} 
 
 /*****************************************************************
  * Register and enqueue a custom stylesheet in the WordPress admin.
