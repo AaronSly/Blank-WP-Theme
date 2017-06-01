@@ -180,7 +180,7 @@ add_action('wp_enqueue_scripts', 'as_replace_jquery');
 
 function add_async_attribute($tag, $handle) {
    // add script handles to the array below
-   $scripts_to_async = array('theme', 'contact-form-7','jquery-migrate','wp-embed');
+   $scripts_to_async = array('theme', 'contact-form-7','jquery-migrate','wp-embed','jquery');
    
    foreach($scripts_to_async as $async_script) {
       if ($async_script === $handle) {
