@@ -225,6 +225,10 @@ add_action( 'admin_enqueue_scripts', 'wpdocs_enqueue_custom_admin_style' );
  ******************************************/
 add_filter( 'body_class','custom_body_classes' );
 function custom_body_classes( $classes ) { 
+	global $post;
+	if(isset($post)) {
+		$classes[] = $post->post_type . '-' . $post->post_name;
+	}
     $classes[] = '';
     return $classes;     
 }
