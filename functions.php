@@ -167,12 +167,20 @@ add_action('wp_enqueue_scripts', 'as_replace_jquery');
  */
 
 //add_action( 'wp_print_scripts', 'es_detect_enqueued_scripts' );
-//function es_detect_enqueued_scripts() {
-//	global $wp_scripts;
-//	foreach( $wp_scripts->queue as $handle ) :
-//		echo $handle . ' | ';
-//	endforeach;
-//}
+function es_detect_enqueued_scripts() {
+	global $wp_scripts;
+	foreach( $wp_scripts->queue as $handle ) :
+		echo $handle . ' | ';
+	endforeach;
+}
+
+//add_action( 'wp_print_styles', 'es_detect_enqueued_styles' );
+function es_detect_enqueued_styles() {
+	global $wp_styles;
+	foreach( $wp_styles->registered as $handle => $data ) :
+		echo $handle . ' | ';
+	endforeach;
+}
 
 /*
  * Load scripts via async.
