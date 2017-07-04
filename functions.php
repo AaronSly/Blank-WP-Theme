@@ -148,6 +148,14 @@ function NAMESPACETHIS_scripts() {
 add_action( 'wp_enqueue_scripts', 'NAMESPACETHIS_scripts' );
 
 /******************************
+ * Remove plugins styles.
+ *****************************/
+function remove_plugin_styles() {
+	wp_dequeue_style("contact-form-7");
+}
+//add_action('wp_enqueue_scripts', 'remove_plugin_styles');
+
+/******************************
  * Stop render blocking scripts.
  *****************************/
 /*
