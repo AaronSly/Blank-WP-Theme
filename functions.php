@@ -226,6 +226,28 @@ add_filter('script_loader_tag', 'add_async_attribute', 10, 2);
 //    return $tag;
 //} 
 
+/*****************************************************
+ * Filter system email address and from name
+ *****************************************************/
+function NAMESPACETHIS_filter_wp_mail_from($email){
+$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+$sitename = substr( $sitename, 4 );
+}
+// Enter first half of email address you want to display.
+$myfront = "NAMESPACETHIS@";
+$myback = $sitename;
+$myfrom = $myfront . $myback;
+return $myfrom;
+}
+add_filter("wp_mail_from", "NAMESPACETHIS_filter_wp_mail_from");
+
+/* enter the full name you want displayed alongside the email address */
+function NAMESPACETHIS_filter_wp_mail_from_name($from_name){
+return "NAMESPACETHIS";
+}
+add_filter("wp_mail_from_name", "NAMESPACETHIS_filter_wp_mail_from_name");
+
 /*****************************************************************
  * Register and enqueue a custom stylesheet in the WordPress admin.
  ****************************************************************/
