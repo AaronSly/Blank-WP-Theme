@@ -164,7 +164,7 @@ function remove_plugin_styles() {
 function as_replace_jquery() {	
 		// comment out the next two lines to load the local copy of jQuery
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js', false, '1.11.3');
+		wp_register_script('jquery', 'https://code.jquery.com/jquery-3.3.1.min.js', false, '1.11.3');
 		wp_enqueue_script('jquery');	
 }
 add_action('wp_enqueue_scripts', 'as_replace_jquery');
@@ -246,7 +246,7 @@ add_filter("wp_mail_from", "NAMESPACETHIS_filter_wp_mail_from");
 function NAMESPACETHIS_filter_wp_mail_from_name($from_name){
 return "NAMESPACETHIS";
 }
-add_filter("wp_mail_from_name", "NAMESPACETHIS_filter_wp_mail_from_name");
+//add_filter("wp_mail_from_name", "NAMESPACETHIS_filter_wp_mail_from_name");
 
 /*****************************************************************
  * Register and enqueue a custom stylesheet in the WordPress admin.
@@ -394,13 +394,13 @@ function isa_editor_manage_users() {
         update_option( 'isa_add_cap_editor_once', 'done' );
     } 
 }
-add_action( 'init', 'isa_editor_manage_users' );
+//add_action( 'init', 'isa_editor_manage_users' );
 
 //prevent editor from deleting, editing, or creating an administrator
 // only needed if the editor was given right to edit users 
 class NAMESPACETHIS_User_Caps { 
   // Add our filters
-  function NAMESPACETHIS_User_Caps(){
+  function __construct(){
     add_filter( 'editable_roles', array(&$this, 'editable_roles'));
     add_filter( 'map_meta_cap', array(&$this, 'map_meta_cap'),10,4);
   }
@@ -447,11 +447,11 @@ class NAMESPACETHIS_User_Caps {
   } 
 }
  
-$NAMESPACETHIS_User_Caps = new NAMESPACETHIS_User_Caps();
+//$NAMESPACETHIS_User_Caps = new NAMESPACETHIS_User_Caps();
 
 // Hide all administrators from user list.
  
-add_action('pre_user_query','NAMESPACETHIS_pre_user_query');
+//add_action('pre_user_query','NAMESPACETHIS_pre_user_query');
 function NAMESPACETHIS_pre_user_query($user_search) {
  
     $user = wp_get_current_user();
